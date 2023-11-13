@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  userpermissions.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+
+  sqlserver-db:
+    restart: always
+    container_name: sqlserver-db
+    ports:
+     - "1433:1433"
+    environment:
+     - "ACCEPT_EULA=Y"
+     - "MSSQL_SA_PASSWORD=123456789Aa"
+  
+  elasticsearch-db:
+    container_name: elasticsearch-db
+    ports:
+    - "9200:9200"
+    - "9300:9300"
+    volumes:
+    - esdata:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
